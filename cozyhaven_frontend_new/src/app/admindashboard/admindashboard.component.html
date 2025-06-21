@@ -1,0 +1,108 @@
+<div class="user-dashboard-bg">
+  <!-- Fixed Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow px-4 rounded-bottom">
+    <a class="navbar-brand">Admin Dashboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="adminNavbar">
+      <ul class="navbar-nav ms-auto">
+        <!-- Manage Users -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown">
+            Manage Users
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><button class="dropdown-item" routerLink="/userbyadmin">Search User by ID</button></li>
+            <li><button class="dropdown-item" (click)="currentSection = 'viewUsers'; getAllUsers()">View All Users</button></li>
+          </ul>
+        </li>
+
+        <!-- Manage Owners -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown">
+            Manage Owners
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><button class="dropdown-item" routerLink="/ownerbyadmin">Search Owner by ID</button></li>
+            <li><button class="dropdown-item" routerLink="/getallowners">View All Owners</button></li>
+          </ul>
+        </li>
+
+        <!-- Manage Hotels -->
+      <!-- In Admin Dashboard Navbar -->
+<li>
+  <a class="nav-link text-white" routerLink="/hotelsbyadmin" role="button" data-bs-toggle="dropdown">
+    Manage Hotels
+  </a>
+  
+</li>
+
+        <!-- Manage Reservations -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown">
+            Manage Reservations
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><button class="dropdown-item" routerLink="/adminreservation">View All Reservations</button></li>
+          </ul>
+        </li>
+
+        <!-- Back -->
+        <li class="nav-item">
+          <button class="btn btn-outline-light ms-3" routerLink="/">Back</button>
+        </li>
+          <button 
+         class="btn btn-outline-light position-absolute" 
+        style="top: 20px; right: 20px; z-index: 1050;" 
+         routerLink="/" (click)="logout()">
+         LogOut
+       </button>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Content Area -->
+ 
+
+    <!-- View All Users -->
+    <div *ngIf="currentSection === 'viewUsers'" class="text-white mt-4">
+      <h4 class="text-center mb-4">All Registered Users</h4>
+      <div *ngIf="allUserList.length > 0" class="table-responsive">
+        <table class="table table-bordered  table-striped text-white text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>User ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Address</th>
+              <th>Role</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of allUserList">
+              <td>{{ user.userId }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.contactNumber }}</td>
+              <td>{{ user.address }}</td>
+              <td>{{ user.role }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteUserById(user.userId)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    
+
+   
+
+  </div>
+

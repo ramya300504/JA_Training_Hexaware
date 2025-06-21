@@ -1,0 +1,43 @@
+<!-- Search Owner by ID -->
+ <div class="user-dashboard-bg">
+ <div class=" container mt-4">    
+<div>
+      <h4 class="text-center text-white mb-4">Search Owner by ID</h4>
+      <form class="d-flex justify-content-center align-items-end gap-2 mb-3">
+        <div>
+          <label class="form-label text-white">Owner ID</label>
+          <input type="number" class="form-control" [(ngModel)]="ownerId" name="ownerId" required />
+        </div>
+        <button type="button" class="btn btn-primary" (click)="searchByOwnerId()" style="margin-left: 20px;">Search</button>
+        <button class="btn btn-outline-light ms-3" routerLink="/admindashboard" style="margin-left: 20px;">Back</button>
+      </form>
+
+      <!-- Owner Results -->
+      <div *ngIf="ownerList.length > 0" class="table-responsive">
+        <table class="table table-bordered table-hover table-striped text-white text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>Owner ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Address</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let owner of ownerList">
+              <td>{{ owner.userId }}</td>
+              <td>{{ owner.firstName }}</td>
+              <td>{{ owner.lastName }}</td>
+              <td>{{ owner.email }}</td>
+              <td>{{ owner.contactNumber }}</td>
+              <td>{{ owner.address }}</td>
+              <td>{{ owner.role }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+ </div> </div>

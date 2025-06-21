@@ -1,0 +1,91 @@
+
+/* Background with blur */
+.user-dashboard-bg {
+  position: relative;
+  background-image: url('/assets/bg_image2.png');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.user-dashboard-bg::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  z-index: -1;
+}
+
+/* Glass-like reservation card */
+.reservation-card {
+  width: 500px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* White label styling */
+.text-white {
+  color: white;
+}
+
+/* Input fields */
+.form-control {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+
+.form-control:focus {
+  background-color: #fff;
+  border-color: #66afe9;
+  box-shadow: none;
+}
+
+/* Button styles */
+button.btn {
+  font-weight: 600;
+  padding: 8px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Specific button colors */
+.btn-primary {
+  background: linear-gradient(135deg, #5a61c2, #9fc2ed);
+  border: none;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #3a89e6, #68c1fa);
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #28a745, #61d982);
+  border: none;
+  color: white;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #1e7e34, #4dcf72);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: rgba(108, 117, 125, 0.9);
+  border: none;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: rgba(108, 117, 125, 1);
+  transform: translateY(-2px);
+}

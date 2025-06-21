@@ -1,0 +1,267 @@
+<div class="user-dashboard-bg">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow px-4 rounded-bottom">
+  <a class="navbar-brand">Hotel Owner Dashboard</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ms-auto">
+      
+      
+       
+        
+          <button  class="btn btn-outline-light" (click)="showAddRoom()" style="margin-right: 10px;">Add Room</button>
+          <button  class="btn btn-outline-light" (click)="showViewAllRooms()" style="margin-right: 10px;">View All Rooms</button>
+          <button  class="btn btn-outline-light" routerLink="/">Back</button>
+
+       <li class="nav-item">
+        <a class="nav-link text-white" (click)="showRefunds()">Manage Refund Request</a>
+         
+      </li> 
+    </ul>
+  </div>
+         <button routerLink="/userprofile" style="margin-left: 20px;" class="btn btn-outline-light ">My Profile</button>
+         <button 
+             class="btn btn-outline-light position-absolute" 
+             style="top: 10px; right: 200px; z-index: 1050;" 
+             routerLink="/" (click)="logout()">
+             LogOut
+          </button>
+          
+</nav>
+
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <!-- Search Hotels -->
+      <div *ngIf="active === 'search'">
+        <h3 class="text-primary mb-3">Search Hotels</h3>
+        <form #searchForm="ngForm">
+          <div class="input-group mb-2">
+            <input type="text" class="form-control" name="hotelName" ngModel placeholder="Enter hotel name" required />
+            <button class="btn btn-primary" type="submit">Search</button>
+          </div>
+        </form>
+      </div>
+
+      
+      <!-- Add Room -->
+      
+   <div *ngIf="activeSection === 'addRoom'" class="d-flex justify-content-center align-items-center min-vh-100 user-dashboard-bg">
+  <div class="reservation-card p-4" style="border-radius: 20px;">
+    <h3 class="text-center mb-4 text-white">Add New Room</h3>
+
+    <form #roomForm="ngForm" (ngSubmit)="addRoom()">
+      
+      <div class="mb-3">
+        <label class="form-label text-white">Room Size</label>
+        <input type="text" name="roomSize" [(ngModel)]="room.roomSize" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-white">Bed Type</label>
+        <select name="bedType" [(ngModel)]="room.bedType" class="form-select" required>
+          <option value="SINGLE">Single</option>
+          <option value="DOUBLE">Double</option>
+          <option value="KING">King</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-white">Base Fare</label>
+        <input type="number" name="baseFare" [(ngModel)]="room.baseFare" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-white">Max Persons</label>
+        <input type="number" name="maxPersons" [(ngModel)]="room.maxPersons" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-white">Is AC</label>
+        <select name="ac" [(ngModel)]="room.ac" class="form-select" required>
+          <option [ngValue]="true">Yes</option>
+          <option [ngValue]="false">No</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-white">Is Available</label>
+        <select name="available" [(ngModel)]="room.available" class="form-select" required>
+          <option [ngValue]="true">Yes</option>
+          <option [ngValue]="false">No</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-white">Hotel ID</label>
+        <input type="number" name="hotelId" [(ngModel)]="room.hotelId" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-white">Image URL</label>
+        <input type="text" name="imageUrl" [(ngModel)]="room.imageUrl" class="form-control" />
+      </div>
+
+      <button type="submit" class="btn btn-success w-100 py-2">
+        <i class="bi bi-plus-square sm-2"></i> Add Room
+      </button>
+
+    </form>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="activeSection === 'viewAllRooms'" class="container mt-4">
+  <h3 class="text-white b-3 text-center">List of Rooms</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered  align-middle text-white text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Room ID</th>
+          <th>Room Size</th>
+          <th>Bed Type</th>
+          <th>Base Fare</th>
+          <th>Max Persons</th>
+          <th>Is AC</th>
+          <th>Is Available</th>
+          <th>Hotel ID</th>
+          <th>Image URL</th>
+          <th colspan="2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let room of roomList">
+          <td>{{ room.roomId }}</td>
+
+          
+          <td *ngIf="editRoomId !== room.roomId" >{{ room.roomSize }}</td>
+          <td *ngIf="editRoomId === room.roomId">
+            <input [(ngModel)]="room.roomSize" class="form-control" />
+          </td>
+
+         
+          <td *ngIf="editRoomId !== room.roomId">{{ room.bedType }}</td>
+          <td *ngIf="editRoomId === room.roomId">
+            <input [(ngModel)]="room.bedType" class="form-control" />
+          </td>
+
+          
+          <td *ngIf="editRoomId !== room.roomId">{{ room.baseFare }}</td>
+          <td *ngIf="editRoomId === room.roomId">
+            <input type="number" [(ngModel)]="room.baseFare" class="form-control" />
+          </td>
+
+          
+          <td *ngIf="editRoomId !== room.roomId">{{ room.maxPersons }}</td>
+          <td *ngIf="editRoomId === room.roomId">
+            <input type="number" [(ngModel)]="room.maxPersons" class="form-control" />
+          </td>
+        
+          <td *ngIf="editRoomId !== room.roomId">
+            {{ room.ac ? 'Yes' : 'No' }}
+          </td>
+          <td *ngIf="editRoomId === room.roomId">
+            <select [(ngModel)]="room.ac" class="form-select">
+              <option [value]="true">Yes</option>
+              <option [value]="false">No</option>
+            </select>
+          </td>
+
+          <td *ngIf="editRoomId !== room.roomId">
+            {{ room.available ? 'Yes' : 'No' }}
+          </td>
+          <td *ngIf="editRoomId === room.roomId">
+            <select [(ngModel)]="room.available" class="form-select">
+              <option [value]="true">Yes</option>
+              <option [value]="false">No</option>
+            </select>
+          </td>
+
+          
+          <td *ngIf="editRoomId !== room.roomId">{{ room.hotelId }}</td>
+          <td *ngIf="editRoomId === room.roomId">
+            <input type="number" [(ngModel)]="room.hotelId" class="form-control" />
+          </td>
+
+          <td *ngIf="editRoomId !== room.roomId">{{ room.imageUrl }}</td>
+          <td *ngIf="editRoomId === room.roomId">
+            <input type="text" [(ngModel)]="room.imageUrl" class="form-control" />
+          </td>
+
+          
+          <td *ngIf="editRoomId !== room.roomId">
+            <button (click)="doEdit(room.roomId)" class="btn btn-outline-light btn-sm">
+              <i class="bi bi-pencil-square"></i> Edit
+            </button>
+          </td>
+          <td *ngIf="editRoomId === room.roomId">
+            <div class="d-flex gap-2 justify-content-center">
+              <button (click)="updateRoom(room)" class="btn btn-outline-light btn-sm">
+               <i class="bi bi-x-circle "></i>Save
+              </button>
+              <button (click)="cancelEdit()" class="btn btn-outline-light btn-sm">
+                <i class="bi bi-x-circle"></i> Cancel
+              </button>
+            </div>
+          </td>
+
+          <td>
+            <button (click)="deleteRoom(room.roomId)" class="btn btn-outline-light btn-sm">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div *ngIf="activeSection === 'refunds'" class="container mt-4">
+  <h3 class="text-center text-white">Refund Requests</h3>
+  <table class="table table-bordered table-striped text-center text-white">
+    <thead class="table-dark">
+      <tr>
+        <th>Refund ID</th>
+        <th>User ID</th>
+        <th>Reservation ID</th>
+        <th>Amount</th>
+        <th>Reason</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let refund of refundList">
+        <td>{{ refund.refundId }}</td>
+        <td>{{ refund.userId }}</td>
+        <td>{{ refund.reservationId }}</td>
+        <td>{{ refund.refundAmount }}</td>
+        <td>{{ refund.refundReason }}</td>
+        <td>{{ refund.refundDate | date:'yyyy-MM-dd' }}</td>
+        <td>{{ refund.refundStatus }}</td>
+        <td>
+          <button class="btn btn-success btn-sm me-2" (click)="approve(refund.refundId)" [disabled]="refund.refundStatus !== 'PENDING'">Approve</button>
+          <button class="btn btn-danger btn-sm" (click)="reject(refund.refundId)" [disabled]="refund.refundStatus !== 'PENDING'" style="margin-left: 15px;">Reject</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+</div>
+
+  
+ 

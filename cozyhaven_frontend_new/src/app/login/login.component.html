@@ -1,0 +1,32 @@
+<div class="register-blurred-bg d-flex justify-content-center align-items-center min-vh-100">
+  
+  <div class="register-card p-4">
+    <h4 class="register-title text-center mb-3">Login</h4>
+
+    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input  type="email" id="email" name="email" class="form-control"  [(ngModel)]="login.email"   required  #email="ngModel">
+        <div *ngIf="email.invalid && email.touched" class="text-danger small">
+          Enter a valid email
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="login.password" style="margin-bottom: 40px;" required minlength="6" #password="ngModel">
+        <div *ngIf="password.invalid && password.touched" class="text-danger small">
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <button type="submit" class="register-btn btn w-100" [disabled]="loginForm.invalid">Login</button>
+       <button 
+         class="btn btn-outline-light position-absolute" 
+        style="top: 20px; right: 20px; z-index: 1050;" 
+         routerLink="/">
+         Back
+       </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<div class="user-dashboard-bg min-vh-100 py-5 px-3">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 shadow fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-4 text-white">User Dashboard</a>
+
+    <div class="d-flex gap-3">
+      <a routerLink="/viewbookings" class="btn btn-outline-light px-4" style="margin-right: 20px;">View All Bookings</a>
+      <a routerLink="/" class="btn btn-outline-light px-4" style="margin-right: 20px;">Home</a>
+      <a (click)="logout()" class="btn btn-outline-light px-4" style="margin-right: 20px;" routerLink="/">Logout</a>
+      <a routerLink="/userprofile" class="btn btn-outline-light px-4">My Profile</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Spacer for fixed navbar -->
+<div style="margin-top: 80px;"></div>
+    <h2 class="dashboard-title text-center mb-4">
+      Welcome to User Dashboard
+    </h2>
+
+    <p class="dashboard-subtitle text-center mb-4">
+      Book your comfort hotels here
+    </p>
+
+    <div class="dashboard-search-card p-4 mb-5">
+      <form (ngSubmit)="searchHotels(searchForm)" #searchForm="ngForm">
+        <div class="row g-3 align-items-end">
+
+          
+          <div class="col-md-2">
+          <label class="form-label">Location</label>
+
+              <!-- Input field bound to Angular model -->
+            <input type="text" list="locationList" class="form-control"  placeholder="Location"  [(ngModel)]="search.location" name="location" required>
+         
+             <!-- Datalist with predefined options -->
+            <datalist id="locationList">
+         <option *ngFor="let loc of location" [value]="loc"></option>
+       </datalist>
+     </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Check In Date</label>
+            <input type="date" class="form-control" [min]="today"
+              [(ngModel)]="search.checkInDate" name="checkInDate" required>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Check Out Date</label>
+            <input type="date" class="form-control" [min]="today" 
+              [(ngModel)]="search.checkOutDate" name="checkOutDate" required>
+          </div>
+
+          <div class="col-md-1">
+            <label class="form-label">Rooms</label>
+            <input type="number" class="form-control" placeholder="Rooms"
+              [(ngModel)]="search.noOfRooms" name="numberOfRooms" required>
+          </div>
+
+          <div class="col-md-1">
+            <label class="form-label">Adults</label>
+            <input type="number" class="form-control" placeholder="Adults"
+              [(ngModel)]="search.noOfAdults" name="numberOfAdults" required>
+          </div>
+
+          <div class="col-md-1">
+            <label class="form-label">Children</label>
+            <input type="number" class="form-control" placeholder="Children"
+              [(ngModel)]="search.noOfChildren" name="numberOfChildren">
+          </div>
+
+          <div class="col-md-2 text-end">
+            <button class="register-btn btn w-100" type="submit">
+              Search
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+
+  <div *ngIf=" hotels.length > 0" class="row g-4">
+     <div *ngFor="let hotel of hotels" class="col-12" style="margin-bottom: 20px;">
+    <div class="hotel-card d-flex flex-md-row-reverse flex-column align-items-center shadow-sm p-3 rounded-4">
+      
+      
+      <img *ngIf="hotel.imageUrl" [src]="hotel.imageUrl" alt="Hotel Image"
+        class="hotel-image ms-md-4 mb-3 mb-md-0 rounded-3 border border-info" >
+
+      <div class="hotel-details text-light w-100">
+        <h5 >{{ hotel.hotelName }}</h5>
+        <div class="d-flex flex-wrap gap-3 mb-3">
+          <span style="margin-right: 20px;"><strong>ID:</strong> {{ hotel.hotelId }}</span>
+          <span style="margin-right: 20px;"><strong>Location:</strong> {{ hotel.location }}</span>
+          <span style="margin-right: 20px;"><strong>Address:</strong> {{ hotel.address }}</span>
+          <span style="margin-bottom: 20px;"><strong>Contact:</strong> {{ hotel.contactNumber }}</span>
+          <span style="margin-right: 20px; margin-bottom: 20px;"><strong>Description:</strong> {{ hotel.description }}</span>
+            <span style="margin-bottom: 20px;"><strong>Amenities:</strong> {{ hotel.amenities }}</span>
+         
+        </div>
+        <button class="register-btn btn mt-2"
+          [routerLink]="['/view-rooms', hotel.hotelId]"
+          [queryParams]="{ adults: search.noOfAdults, children: search.noOfChildren }">
+          View All Rooms
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- No Hotels Found -->
+    <div *ngIf="searched && hotels.length === 0" class="text-center text-light mt-4">
+      <p>No hotels found</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+
+<div class="d-flex justify-content-center align-items-center min-vh-100 user-dashboard-bg">
+  <div class="reservation-card" style="border-radius: 20px; width: 500px;">
+        <button 
+             class="btn btn-outline-light position-absolute" 
+             style="top: 10px; right: 200px; z-index: 1050;" 
+             routerLink="/viewbookings" >
+             Back
+          </button>
+    <h3 class="text-center mb-4 text-white">Kindly Leave your Review Here,It Matters a Lot!!</h3>
+<form #reviewForm="ngForm">
+  <!-- Hotel ID (read-only) -->
+  <div class="mb-3">
+    <label class="form-label text-white">Hotel ID</label>
+    <input type="number" name="hotelId" [(ngModel)]="review.hotelId"
+           class="form-control" readonly />
+  </div>
+
+  <!-- Rating -->
+  <div class="mb-3">
+    <label class="form-label text-white">Rating (1 to 5)</label>
+    <input type="number" name="rating" [(ngModel)]="review.rating"
+           class="form-control" required min="1" max="5" />
+  </div>
+
+  <!-- Comment -->
+  <div class="mb-3">
+    <label class="form-label text-white">Comment</label>
+    <textarea name="comment" [(ngModel)]="review.comment"
+              class="form-control" required rows="3"></textarea>
+  </div>
+
+  <!-- Add Button -->
+  <button type="button" class="btn btn-success w-100" *ngIf="!isEditMode"
+          (click)="addReview(reviewForm)">
+    <i class="bi bi-plus-circle me-2"></i> Add Review
+  </button>
+
+  <!-- Delete Button -->
+<button type="button" class="btn btn-danger w-100 mt-3" *ngIf="isEditMode"
+        (click)="deleteReview()">
+  <i class="bi bi-trash me-2"></i> Delete Review
+</button>
+
+  
+</form>
+
+
+
+  </div>
+</div>

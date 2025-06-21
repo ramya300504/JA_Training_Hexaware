@@ -1,0 +1,37 @@
+<div class="user-dashboard-bg">
+  <div class="reservation-container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="reservation-card card p-4 shadow">
+      <div class="container mt-3">
+        <h3 class="reservation-heading">Do Payment Here</h3>
+        <form #paymentForm="ngForm" (ngSubmit)="doPayment(paymentForm)">
+
+          <div class="mb-3">
+            <label class="form-label text-white">Payment Date</label>
+            <input type="text" class="form-control" [value]="formattedDisplayDate()" readonly>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-white">Amount</label>
+            <input type="number" class="form-control" [(ngModel)]="payment.amount" name="amount" readonly>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-white" style="margin-right: 20px;">Payment Method</label>
+            <select class="form-select" [(ngModel)]="payment.paymentMethod" name="paymentMethod" required>
+              <option value="" disabled selected>Select Payment Method</option>
+              <option value="UPI">UPI</option>
+              <option value="CARD">Card</option>
+              <option value="NET_BANKING">Net Banking</option>
+            </select>
+          </div>
+
+          <div class="d-flex justify-content-center align-items-center mt-3">
+            <button class="btn btn-success me-2" type="submit" [disabled]="!paymentForm.valid" style="margin-right: 20px;">Pay</button>
+            <button class="btn btn-secondary" routerLink="/roombooking">Back</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

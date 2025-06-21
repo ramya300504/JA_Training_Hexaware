@@ -1,0 +1,48 @@
+ <div class="user-dashboard-bg">
+ <div class=" container mt-4">
+
+    <!-- Search User by ID -->
+    <div>
+      <h4 class="text-center text-white mb-4">Search User by ID</h4>
+      <form class="d-flex justify-content-center align-items-end gap-2 mb-3">
+        <div>
+          <label class="form-label text-white">User ID</label>
+          <input type="number" class="form-control" [(ngModel)]="userId" name="userId" required />
+        </div>
+        <button type="button" class="btn btn-primary" (click)="searchByUserId()" style="margin-left: 20px;">Search</button>
+           <button class="btn btn-outline-light ms-3" routerLink="/admindashboard" style="margin-left: 20px;">Back</button>
+      </form>
+
+      <!-- User Results -->
+      <div *ngIf="userList.length > 0" class="table-responsive">
+        <table class="table table-bordered  table-striped text-white text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>User ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Address</th>
+              <th>Role</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userList">
+              <td>{{ user.userId }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.contactNumber }}</td>
+              <td>{{ user.address }}</td>
+              <td>{{ user.role }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteUserById(user.userId)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
