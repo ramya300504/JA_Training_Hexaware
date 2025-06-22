@@ -17,6 +17,8 @@ If user want to update
 Onwer is the person responsible to approve or reject refund requests and he/she can add new rooms to their existing hotel and can edit and delete existing room and he/she can manage room listings
 # Admin Module
 Admin is responsible to add new hotels and he/she can manage hotel listings and he/she also manages user accounts separately and owner accounts separately if admin found any suspicious activity admin can delete user/owner account by searching their ID and he can edit his own profile.
+# Code Quality
+I have user SonarQube for checking my code quality and I have added the report screenshot in PPT.
 # Deployment
 I have deployed my project in Docker and all further details and output screenshots have been given in PPT kindly refer it.Thank you
 
